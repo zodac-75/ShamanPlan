@@ -1,4 +1,4 @@
-# ShamanPlan 1.0.0-beta2
+# ShamanPlan 1.0.0-beta3
 
 First version: a leveling companion for **Enhancement shamans in WoW Forever**, built on MagePlan.
 
