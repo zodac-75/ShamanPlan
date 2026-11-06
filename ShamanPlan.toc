@@ -32,3 +32,4 @@ Arrow.lua
 Dungeons.lua
 Config.lua
 Profiles.lua
+Kiss.lua

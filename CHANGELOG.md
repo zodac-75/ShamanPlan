@@ -1,4 +1,9 @@
-# ShamanPlan 1.0.0-beta4
+# ShamanPlan 1.0.0-beta5
+
+**New**
+- A little secret for players who both use one of my Plan addons (MagePlan, ShamanPlan, DruidPlan). Try `/kiss` on a friend. <3
+
+## ShamanPlan 1.0.0-beta4
 
 **New**
 - **Train now:** the plan window lists exactly which spell ranks your class trainer has for you (e.g. "Lightning Bolt 2"), and you get a ping with a sound when something new becomes trainable. `/sp train` shows the list again.
