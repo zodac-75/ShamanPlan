@@ -6,6 +6,7 @@
 ## Version: @project-version@
 ## SavedVariables: ShamanPlanGlobal
 ## SavedVariablesPerCharacter: ShamanPlanDB
+## X-Curse-Project-ID: 1787755
 ## X-License: GPL-3.0
 
 Locale.lua
