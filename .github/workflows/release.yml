@@ -1,0 +1,69 @@
+# Releases ShamanPlan to CurseForge.
+#
+# How it works: on every push to main, the workflow reads the version from the
+# first line of CHANGELOG.md ("# ShamanPlan 1.6.1"). If that version has no tag
+# yet, it creates the tag, packages the addon as ShamanPlan-<version>.zip and
+# uploads it to CurseForge with the changelog. Pushes that don't change the
+# version do nothing.
+#
+# A version with "beta" or "alpha" in it (e.g. "# ShamanPlan 1.7.0-beta1") is
+# uploaded as a beta/alpha file on CurseForge, which only opted-in players get.
+#
+# Needs the repository secret CF_API_KEY (a CurseForge API token).
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write # create the version tag and a GitHub release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read version and tag it if new
+        id: version
+        run: |
+          VERSION=$(head -n 1 CHANGELOG.md | sed -n 's/^# ShamanPlan \([0-9][0-9.]*\(-[A-Za-z0-9.]*\)\{0,1\}\).*$/\1/p')
+          if [ -z "$VERSION" ]; then
+            echo "First line of CHANGELOG.md must look like: # ShamanPlan 1.6.1"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then
+            echo "Version $VERSION is already released, nothing to do."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$VERSION" -m "ShamanPlan $VERSION"
+            git push origin "$VERSION"
+            echo "Releasing version $VERSION."
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # The packager is run directly instead of as an action. On a push to a
+      # branch, the action sees the new tag and stops ("Found future tag"),
+      # expecting a separate tag run, but tags pushed from a workflow don't
+      # start new runs. Telling it this is a tag run makes it upload.
+      - name: Package and upload to CurseForge
+        if: steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git clone --depth 1 --branch v2 https://github.com/BigWigsMods/packager "$RUNNER_TEMP/packager"
+          # -g: CurseForge game version for WoW Forever.
+          # -n: zip name, e.g. ShamanPlan-1.7.0.zip
+          GITHUB_EVENT_NAME=release GITHUB_REF="refs/tags/$VERSION" GITHUB_REF_NAME="$VERSION" \
+            "$RUNNER_TEMP/packager/release.sh" -g 1.60.1 -n "{package-name}-{project-version}"

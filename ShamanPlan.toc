@@ -1,0 +1,32 @@
+## Interface: 16001, 11509
+## Title: ShamanPlan
+## Notes: Enhancement shaman leveling companion: talent plan, upgrade check, rank check, Maelstrom and buff alerts, dungeon guide, Alchemy and Herbalism assistant, XP tracker.
+## Author: zodac
+## IconTexture: Interface\AddOns\ShamanPlan\Media\Icon
+## Version: @project-version@
+## SavedVariables: ShamanPlanGlobal
+## SavedVariablesPerCharacter: ShamanPlanDB
+## X-License: GPL-3.0
+
+Locale.lua
+Data.lua
+CraftData.lua
+ShamanPlan.lua
+Plans.lua
+Ranks.lua
+Talents.lua
+Trainer.lua
+Combat.lua
+Craft.lua
+Upgrades.lua
+ZoneTips.lua
+Goals.lua
+XP.lua
+QuestReward.lua
+Drink.lua
+Minimap.lua
+DungeonData.lua
+Arrow.lua
+Dungeons.lua
+Config.lua
+Profiles.lua

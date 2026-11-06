@@ -1,0 +1,24 @@
+# ShamanPlan 1.0.0-beta1
+
+First version: a leveling companion for **Enhancement shamans in WoW Forever**, built on MagePlan.
+
+**Leveling plan**
+- Enhancement talent plan 10-60, checked against the live talent tree. The next talent glows in the talent window.
+- Spells to train per level, a "Not trained yet" list and a trainer reminder.
+- Rank check for your action bars (`/sp ranks`).
+
+**Combat helper**
+- "MAELSTROM 5!" when Lightning Bolt is instant, plus the stack count from 3.
+- Reminders for a missing Lightning Shield, a missing weapon imbue (Windfury / Rockbiter) and Flame Shock on your target.
+
+**Gear and loot**
+- Upgrade check in tooltips, scored in attack power with Enhancement weights (weapon DPS first, then Strength, Intellect through Mental Dexterity, crit and hit).
+- Quest reward picker.
+- Dungeon guide for all Alliance leveling dungeons: quests with status and an arrow to the quest giver, plus shaman loot from the bosses.
+
+**Professions**
+- Alchemy assistant: the next step of a Forever 1-300 route with herbs and vials in your bags and bank.
+- Herbalism: the herbs you can pick now, the next one, and where to go.
+
+**Also included from MagePlan**
+- Settings window, profiles shared by all characters, XP tracker, gold goal, drink reminder, zone tips, themes and resizable windows. English and Swedish.
