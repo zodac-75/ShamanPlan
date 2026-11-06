@@ -1,4 +1,13 @@
-# ShamanPlan 1.0.0-beta5
+# ShamanPlan 1.0.0-beta6
+
+**New**
+- **Pick your two main professions** in the settings window (Profession 1 and 2). "Auto" uses the professions you've learned.
+- The professions window (`/sp craft`) now covers all nine main professions:
+  - Crafting: Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking and Tailoring, each with a WoW Forever 1-300 route and what you have and miss in bags and bank.
+  - Gathering: Herbalism, Mining (best ore now, next ore, where to go) and Skinning (highest beast level you can skin, best leather).
+- Profession goals in the plan window name the trainer for your next rank, and gear notes and zone tips follow the professions you picked.
+
+## ShamanPlan 1.0.0-beta5
 
 **New**
 - A little secret for players who both use one of my Plan addons (MagePlan, ShamanPlan, DruidPlan). Try `/kiss` on a friend. <3

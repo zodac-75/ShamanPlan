@@ -408,7 +408,7 @@ end
 local function LevelBlock(level, header, currentLevel)
   local out = {}
   local function add(s) table.insert(out, s) end
-  local t, g = ns.talents[level], ns.gear[level]
+  local t, g = ns.talents[level], ns.VisibleGear(level)
   local s
   if ns.spells[level] and level > (currentLevel or 0) then
     s = table.concat(ns.spells[level], ", ")
@@ -423,17 +423,44 @@ local function LevelBlock(level, header, currentLevel)
   return out
 end
 
+-- Plan entries for a level, without the ones for professions you don't have.
+function ns.VisibleGear(level)
+  local g = ns.gear[level]
+  if not g then return nil end
+  local out = {}
+  for _, item in ipairs(g) do
+    if not ns.GearVisible or ns.GearVisible(item) then table.insert(out, item) end
+  end
+  return #out > 0 and out or nil
+end
+
+-- Skill you want in your professions at a character level, and what to do about it.
+local PROF_GOALS = {
+  { level = 10, skill = 50, train = 50, rank = "Journeyman" },
+  { level = 20, skill = 125, train = 125, rank = "Expert" },
+  { level = 35, skill = 200, train = 200, rank = "Artisan" },
+  { level = 50, skill = 260 },
+  { level = 58, skill = 300 },
+}
+
 local function ProfWarnings(level)
   local lines = {}
   local target
-  for _, t in ipairs(ns.profTargets) do
+  for _, t in ipairs(PROF_GOALS) do
     if level >= t.level then target = t end
   end
   if not target then return lines end
-  for _, prof in ipairs({ "Alchemy", "Herbalism" }) do
-    local rank = ns.GetProfSkill(prof)
+  for _, prof in ipairs(ns.SelectedProfs and ns.SelectedProfs() or {}) do
+    local rank, maxRank = ns.GetProfSkill(prof)
     if rank and rank < target.skill then
-      table.insert(lines, "|cffff6060" .. ns.T("GOAL_BEHIND", prof, rank, target.skill) .. "|r - " .. ns.Tx(target.note))
+      local note
+      if target.train and (not maxRank or maxRank <= target.train + 25) then
+        local who = ns.PROF_TRAINERS and ns.PROF_TRAINERS[prof] and ns.PROF_TRAINERS[prof][target.train]
+        note = ns.T("GOAL_TRAIN", target.rank, who or "?")
+      else
+        note = ns.T("GOAL_PACE")
+      end
+      table.insert(lines, "|cffff6060" .. ns.T("GOAL_BEHIND", prof, rank, target.skill) .. "|r - " .. note)
     elseif rank then
       table.insert(lines, string.format("|cff60ff60%s %d|r ", prof, rank) .. ns.T("GOAL_DONE", target.skill))
     end
@@ -511,7 +538,7 @@ local function CreateUI()
 end
 
 local function OnLevelUp(newLevel)
-  local t, g = ns.talents[newLevel], ns.gear[newLevel]
+  local t, g = ns.talents[newLevel], ns.VisibleGear(newLevel)
   local left = ns.Unlearned(ns.spells[newLevel])
   local s = #left > 0 and table.concat(left, ", ") or nil
   if t then Print("|cffffd100" .. ns.T("LVLUP_TALENT", newLevel) .. "|r " .. t) end

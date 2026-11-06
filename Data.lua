@@ -2,6 +2,9 @@
 -- Text entries are either a plain string or { "English", "Svenska" }.
 local _, ns = ...
 
+-- Main professions until you pick or learn others.
+ns.DEFAULT_PROFS = { "Alchemy", "Herbalism" }
+
 -- Talent point per level: Enhancement leveling (40/11/0 at 60).
 -- Checked against the live tree (build 1.60.1.70790): every talent is taken only once
 -- its row has 5 points per row spent in that tree, and Flurry (Mental Dexterity 3/3),

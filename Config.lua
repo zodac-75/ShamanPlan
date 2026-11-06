@@ -47,6 +47,12 @@ local FEATURES = {
 }
 
 local SELECTORS = {
+  { key = "CFG_PROF1",
+    value = function() return ns.ProfLabel(1) end,
+    step = function(dir) ns.StepProf(1, dir) end },
+  { key = "CFG_PROF2",
+    value = function() return ns.ProfLabel(2) end,
+    step = function(dir) ns.StepProf(2, dir) end },
   { key = "MM_THEME",
     value = function() return ns.T("THEME_" .. ns.CurrentTheme().key) end,
     step = function(dir)
