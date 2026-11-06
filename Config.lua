@@ -4,7 +4,7 @@
 local _, ns = ...
 
 local LOGO = ns.MEDIA .. "Logo"
-local LOGO_H = 407 / 512 -- the logo fills the top 407 of 512 pixels in the texture
+local LOGO_H = 1 -- the round logo fills the whole 512x512 texture
 
 local win
 local checks, selectors, labels = {}, {}, {}
@@ -221,8 +221,8 @@ local function CreateConfig()
   local logo = win:CreateTexture(nil, "OVERLAY")
   logo:SetTexture(LOGO)
   logo:SetTexCoord(0, 1, 0, LOGO_H)
-  logo:SetSize(250, 250 * LOGO_H)
-  logo:SetPoint("TOP", 0, 64)
+  logo:SetSize(200, 200 * LOGO_H)
+  logo:SetPoint("TOP", 0, 62)
 
   local close = CreateFrame("Button", nil, win, "UIPanelCloseButton")
   close:SetPoint("TOPRIGHT", -2, -2)
@@ -310,7 +310,7 @@ local function RegisterBlizzardPanel()
   local logo = panel:CreateTexture(nil, "ARTWORK")
   logo:SetTexture(LOGO)
   logo:SetTexCoord(0, 1, 0, LOGO_H)
-  logo:SetSize(300, 300 * LOGO_H)
+  logo:SetSize(260, 260 * LOGO_H)
   logo:SetPoint("TOP", 0, -16)
 
   local b = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
