@@ -1,4 +1,10 @@
-# ShamanPlan 1.0.0-beta3
+# ShamanPlan 1.0.0-beta4
+
+**New**
+- **Train now:** the plan window lists exactly which spell ranks your class trainer has for you (e.g. "Lightning Bolt 2"), and you get a ping with a sound when something new becomes trainable. `/sp train` shows the list again.
+- Replaces the old "visit your trainer at every even level" reminder, which didn't say what to train and stayed quiet right after install.
+
+## ShamanPlan 1.0.0-beta3
 
 First version: a leveling companion for **Enhancement shamans in WoW Forever**, built on MagePlan.
 
